@@ -1,1 +1,1 @@
-init
+# cordova-plugin-aliyun-emas-analytics
