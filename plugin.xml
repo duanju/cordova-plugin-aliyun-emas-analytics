@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-aliyun-emas-analytics" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>XRPreference</name>
+  <js-module name="XRPreference" src="www/XRPreference.js">
+    <clobbers target="XRPreference"/>
+  </js-module>
+  <dependency id="cordova-plugin-cocoapod-support"/>
+  <platform name="ios">
+    <source-file src="src/AliyunEmasServices-Info.plist"/>
+    <config-file parent="/*" target="config.xml">
+      <feature name="XRPreference">
+        <param name="ios-package" value="XRPreference"/>
+      </feature>
+    </config-file>
+    <header-file src="src/ios/XRPreference.h"/>
+    <source-file src="src/ios/XRPreference.m"/>
+    <pods-config ios-min-version="8.0" use-frameworks="true">
+      <source url="https://github.com/CocoaPods/Specs.git"/>
+      <source url="https://github.com/aliyun/aliyun-specs.git"/>
+    </pods-config>
+    <pod name="AlicloudAPM" spec="~> 1.0.0"/>
+  </platform>
+</plugin>
