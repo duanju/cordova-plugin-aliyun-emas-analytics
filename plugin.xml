@@ -19,6 +19,8 @@
       <source url="https://github.com/CocoaPods/Specs.git"/>
       <source url="https://github.com/aliyun/aliyun-specs.git"/>
     </pods-config>
-    <pod name="AlicloudAPM" spec="~> 1.0.0"/>
+    <pod name="AlicloudAPM"/>
+    <pod name="AlicloudCrash"/>
+    <pod name="AlicloudTLog"/>
   </platform>
 </plugin>

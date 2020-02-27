@@ -15,16 +15,25 @@ NS_ASSUME_NONNULL_BEGIN
 * @brief 初始化准备数据
 * @details 优先调用，否则可能会出现意想不到的bug
 */
-- (void)initData:(CDVInvokedUrlCommand *)command;
+- (void)registerData:(CDVInvokedUrlCommand *)command;
 
 /*!
 * @brief 性能监控初始化接口（自动读取appKey、appSecret）
 * @details 性能监控初始化接口，appKey、appSecret会从AliyunEmasServices-Info.plist自动读取
-* @param appVersion app版本，会上报
-* @param channel 渠道标记，自定义，会上报
-* @param nick 昵称，自定义，会上报
 */
-- (void)autoInitWithArgs:(CDVInvokedUrlCommand *)command;
+- (void)initAlicloudAPM:(CDVInvokedUrlCommand *)command;
+
+/*!
+* @brief 远程日志初始化接口（自动读取appKey、appSecret）
+* @details 远程日志初始化接口，appKey、appSecret会从AliyunEmasServices-Info.plist自动读取
+*/
+- (void)initAlicloudTlog:(CDVInvokedUrlCommand *)command;
+
+/*!
+* @brief 崩溃分析始化接口（自动读取appKey、appSecret）
+* @details 崩溃分析初始化接口，appKey、appSecret会从AliyunEmasServices-Info.plist自动读取
+*/
+- (void)initAlicloudCrash:(CDVInvokedUrlCommand *)command;
 
 /*!
 * @brief 启动AppMonitor服务

@@ -2,15 +2,21 @@ var exec = require('cordova/exec');
 
 var XRPreference = {
 
-    prepareData:function(arg0, success, error) {
-        exec(success, error, 'XRPreference', 'initData', [arg0]);
-    },
-    start: function (arg0, success, error) {
-        exec(success, error, 'XRPreference', 'start', [arg0]);
+    registerData:function(args, success, error) {
+        exec(success, error, 'XRPreference', 'registerData', args);
     },
 
-    autoInitWithArgs: function (args, success, error) {
-        exec(success, error, 'XRPreference', 'autoInitWithArgs', args);
+    initAlicloudAPM:function () {
+        exec(null, null, 'XRPreference', 'initAlicloudAPM', null);
+    },
+    initAlicloudTlog:function () {
+        exec(null, null, 'XRPreference', 'initAlicloudTlog', null);
+    },
+    initAlicloudCrash:function () {
+        exec(null, null, 'XRPreference', 'initAlicloudCrash', null);
+    },
+    start: function () {
+        exec(null, null, 'XRPreference', 'start', null);
     }
 };
 
