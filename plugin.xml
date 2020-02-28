@@ -1,9 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="cordova-plugin-aliyun-emas-analytics" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
-  <name>XRPreference</name>
+  <name>XRAnalytics</name>
   <js-module name="XRPreference" src="www/XRPreference.js">
     <clobbers target="XRPreference"/>
+  </js-module>
+  <js-module name="XRRemoteLog" src="www/XRRemoteLog.js">
+    <clobbers target="XRLog"/>
   </js-module>
   <dependency id="cordova-plugin-cocoapod-support"/>
   <platform name="ios">
@@ -12,9 +15,14 @@
       <feature name="XRPreference">
         <param name="ios-package" value="XRPreference"/>
       </feature>
+      <feature name="XRRemoteLog">
+        <param name="ios-package" value="XRRemoteLog"/>
+      </feature>
     </config-file>
     <header-file src="src/ios/XRPreference.h"/>
     <source-file src="src/ios/XRPreference.m"/>
+    <header-file src="src/ios/XRRemoteLog.h"/>
+    <source-file src="src/ios/XRRemoteLog.m"/>
     <pods-config ios-min-version="8.0" use-frameworks="true">
       <source url="https://github.com/CocoaPods/Specs.git"/>
       <source url="https://github.com/aliyun/aliyun-specs.git"/>
