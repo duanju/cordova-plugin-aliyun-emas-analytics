@@ -2,6 +2,11 @@
 <plugin id="cordova-plugin-aliyun-emas-analytics" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
   <name>XRAnalytics</name>
+
+  <!--<preference name="EmasAppKey" />-->
+  <!--<preference name="EmasAppSecret" />-->
+  <!--<preference name="EmasBundleId" />-->
+
   <js-module name="XRPreference" src="www/XRPreference.js">
     <clobbers target="XRPreference"/>
   </js-module>
@@ -10,7 +15,10 @@
   </js-module>
   <dependency id="cordova-plugin-cocoapod-support"/>
   <platform name="ios">
-    <source-file src="src/AliyunEmasServices-Info.plist"/>
+
+    <hook type="before_prepare" src="src/scripts/edit.js" />
+    <resource-file src="src/AliyunEmasServices-Info.plist"/>
+
     <config-file parent="/*" target="config.xml">
       <feature name="XRPreference">
         <param name="ios-package" value="XRPreference"/>

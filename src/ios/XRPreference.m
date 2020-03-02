@@ -110,10 +110,12 @@ static XRPreference *shareInstance = nil;
             return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[NSString stringWithFormat:@"%s %@ %@", __FUNCTION__, @"传入的参数不合规", command.arguments]];
         }
     };
+    /**
     CDVPluginResult *resultForRegisterPlist = registerPlistBlock();
     if (!([resultForRegisterPlist.status unsignedIntegerValue] == CDVCommandStatus_OK)) {
         return [self.commandDelegate sendPluginResult:resultForRegisterPlist callbackId:callbackId];
     }
+    */
     CDVPluginResult *resultForRegisterParameter = registerParameterBlock(command);
     return [self.commandDelegate sendPluginResult:resultForRegisterParameter callbackId:callbackId];
 }
