@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface XRPreference : CDVPlugin
 
+#pragma mark 手动启动服务
 /*!
 * @brief 初始化准备数据
 * @details 优先调用，否则可能会出现意想不到的bug
@@ -40,6 +41,16 @@ NS_ASSUME_NONNULL_BEGIN
 * @details 启动AppMonitor服务，可包括崩溃分析、远程日志、性能监控
 */
 - (void)start:(CDVInvokedUrlCommand *)command;
+
+#pragma mark 自动启动服务
+/**
+ @brief 自动启动阿里云服务：<性能分析&远程日志&崩溃分析>
+ 自动读取appKey、appSecret
+ 只需单独集成此api即可
+ 启动服务需在config.xml中配置，具体参照文档说明
+ 函数会返回失败信息，成功无返回
+ */
+- (void)autoStartAliyunAnalyticsWithArgs:(CDVInvokedUrlCommand *)command;
 
 @end
 

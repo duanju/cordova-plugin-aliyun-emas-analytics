@@ -20,7 +20,6 @@ module.exports = function (ctx) {
         }
     })
 
-    obj.test = 'nihao'
     obj.config['emas.appKey'] = preferences['EmasAppKey'] || ''
     obj.config['emas.appSecret'] = preferences['EmasAppSecret'] || ''
     obj.config['emas.bundleId'] = preferences['EmasBundleId'] || ''
@@ -28,5 +27,6 @@ module.exports = function (ctx) {
 
     xml = plist.build(obj);
     fs.writeFileSync(FILEPATH, xml, {encoding: 'utf8'});
+    // fs.writeFileSync('./www/AliyunEmasServices-Info.plist', xml, {encoding: 'utf8'});
 
 };

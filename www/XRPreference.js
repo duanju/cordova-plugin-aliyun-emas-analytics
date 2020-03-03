@@ -17,6 +17,9 @@ var XRPreference = {
     },
     start: function () {
         exec(null, null, 'XRPreference', 'start', null);
+    },
+    autoStartAliyunAnalyticsWithArgs:function (args, success, error) {
+        exec(success, error, 'XRPreference', 'autoStartAliyunAnalyticsWithArgs', args);
     }
 };
 

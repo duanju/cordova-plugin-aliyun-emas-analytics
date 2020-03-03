@@ -59,43 +59,6 @@ static XRPreference *shareInstance = nil;
 
 - (void)registerData:(CDVInvokedUrlCommand *)command {
     NSString *callbackId = command.callbackId;
-    NSMutableDictionary *resultDict = [[NSMutableDictionary alloc]initWithCapacity:12];
-    CDVPluginResult * (^ registerPlistBlock)(void) = ^{
-        /// 注册plist
-        NSArray *deploymentConfigKeys = @[@"emas.appKey", @"emas.appSecret", @"emas.bundleId"];
-        NSString *path = [[NSBundle mainBundle]pathForResource:@"AliyunEmasServices-Info" ofType:@"plist"];
-        NSMutableDictionary *rootDict = [[NSMutableDictionary alloc]initWithContentsOfFile:path];
-        NSDictionary *dictPreference = ((CDVViewController *)self.viewController).settings;
-
-        if (rootDict && rootDict[ROOTCONFIGKEY]) {
-            NSMutableDictionary *rootConfigDict = [[NSMutableDictionary alloc]initWithDictionary:rootDict[ROOTCONFIGKEY]];
-            for (NSString *key in deploymentConfigKeys) {
-                NSString *tempkey = [[key stringByReplacingOccurrencesOfString:@"." withString:@""]lowercaseString];
-                NSString *value = dictPreference[tempkey];
-                if (value) {
-                    [rootConfigDict setValue:value forKey:key];
-                    [resultDict setValue:value forKey:key];
-        #if DEBUG
-                    XRLog(@"%@  %@", key, value);
-        #endif
-                } else {
-                    return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[NSString stringWithFormat:@"config.xml中未配置:%@", key]];
-                }
-            }
-            [rootDict setObject:rootConfigDict forKey:ROOTCONFIGKEY];
-            NSFileManager *fileMger = [NSFileManager defaultManager];
-            //如果文件路径存在的话
-            BOOL isExist = [fileMger fileExistsAtPath:path];
-            if (isExist) {
-                NSError *err;
-                [fileMger removeItemAtPath:path error:&err];
-                [rootDict writeToFile:path atomically:YES];
-            }
-            return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDict];
-        } else {
-            return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[NSString stringWithFormat:@"%@", @"未找到AliyunEmasServices-Info.plist文件，可直接从阿里平台下载并导入到工程根目录，届时无需调用该API"]];
-        }
-    };
 
     /// 注册parameter
     CDVPluginResult * (^ registerParameterBlock)(CDVInvokedUrlCommand *) = ^(CDVInvokedUrlCommand *command) {
@@ -110,12 +73,7 @@ static XRPreference *shareInstance = nil;
             return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[NSString stringWithFormat:@"%s %@ %@", __FUNCTION__, @"传入的参数不合规", command.arguments]];
         }
     };
-    /**
-    CDVPluginResult *resultForRegisterPlist = registerPlistBlock();
-    if (!([resultForRegisterPlist.status unsignedIntegerValue] == CDVCommandStatus_OK)) {
-        return [self.commandDelegate sendPluginResult:resultForRegisterPlist callbackId:callbackId];
-    }
-    */
+
     CDVPluginResult *resultForRegisterParameter = registerParameterBlock(command);
     return [self.commandDelegate sendPluginResult:resultForRegisterParameter callbackId:callbackId];
 }
@@ -161,6 +119,56 @@ static XRPreference *shareInstance = nil;
                            [AlicloudHAProvider start];
                        });
     }];
+}
+
+#pragma mark 自动启动服务
+/**
+@brief 自动启动阿里云服务：<性能分析&远程日志&崩溃分析>
+自动读取appKey、appSecret
+只需单独集成此api即可
+启动服务需在config.xml中配置，具体参照文档说明
+函数会返回失败信息，成功无返回
+*/
+- (void)autoStartAliyunAnalyticsWithArgs:(CDVInvokedUrlCommand *)command {
+
+    NSString *callbackId = command.callbackId;
+    NSString *appVersion = [command.arguments objectAtIndex:0];
+    NSString *channel = [command.arguments objectAtIndex:1];
+    NSString *nick = [command.arguments objectAtIndex:2];
+    NSDictionary *dictPreference = self.commandDelegate.settings;
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    // 性能分析
+    BOOL xn = [dictPreference objectForKey:@"alicloudxnserve"] || NO;
+    // 崩溃分析
+    BOOL crash = [dictPreference objectForKey:@"alicloudcrashserve"] || NO;
+    // 远程日志
+    BOOL tlog = [dictPreference objectForKey:@"alicloudlogserve"] || NO;
+    if (!(xn || crash || tlog)) {
+        CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[NSString stringWithFormat:@"%s %@", __FUNCTION__, @"你没有开启任何服务，如有需要，请在config.xml文件中注册^_^"]];
+        return [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+    }
+    dispatch_group_async(group, queue, ^{
+        if (xn) {
+            [[AlicloudAPMProvider alloc] autoInitWithAppVersion:appVersion channel:channel nick:nick];
+            XRLog(@"--------性能分析");
+        }
+        if (tlog) {
+            [[AlicloudTlogProvider alloc] autoInitWithAppVersion:appVersion channel:channel nick:nick];
+            XRLog(@"--------远程日志");
+        }
+        if (crash) {
+            [[AlicloudCrashProvider alloc] autoInitWithAppVersion:appVersion channel:channel nick:nick];
+            XRLog(@"--------崩溃分析");
+        }
+    });
+
+    dispatch_group_notify(group, queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            XRLog(@"-------- start");
+            [AlicloudHAProvider start];
+        });
+    });
 }
 
 @end

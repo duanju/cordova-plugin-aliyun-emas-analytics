@@ -17,8 +17,6 @@
   <platform name="ios">
 
     <hook type="before_prepare" src="src/scripts/edit.js" />
-    <resource-file src="src/AliyunEmasServices-Info.plist"/>
-
     <config-file parent="/*" target="config.xml">
       <feature name="XRPreference">
         <param name="ios-package" value="XRPreference"/>
@@ -38,5 +36,6 @@
     <pod name="AlicloudAPM"/>
     <pod name="AlicloudCrash"/>
     <pod name="AlicloudTLog"/>
+    <resource-file src="src/AliyunEmasServices-Info.plist"/>
   </platform>
 </plugin>
