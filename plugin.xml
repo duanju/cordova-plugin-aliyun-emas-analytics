@@ -2,11 +2,7 @@
 <plugin id="cordova-plugin-aliyun-emas-analytics" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
   <name>XRAnalytics</name>
-
-  <!--<preference name="EmasAppKey" />-->
-  <!--<preference name="EmasAppSecret" />-->
-  <!--<preference name="EmasBundleId" />-->
-
+  <keywords>cordova,aliyun,emas,aliyunsdk,analytics,tlog,crash</keywords>
   <js-module name="XRPreference" src="www/XRPreference.js">
     <clobbers target="XRPreference"/>
   </js-module>
@@ -15,8 +11,7 @@
   </js-module>
   <dependency id="cordova-plugin-cocoapod-support"/>
   <platform name="ios">
-
-    <hook type="before_prepare" src="src/scripts/edit.js" />
+    <hook src="scripts/before_prepare_ios.js" type="before_prepare"/>
     <config-file parent="/*" target="config.xml">
       <feature name="XRPreference">
         <param name="ios-package" value="XRPreference"/>
@@ -36,6 +31,15 @@
     <pod name="AlicloudAPM"/>
     <pod name="AlicloudCrash"/>
     <pod name="AlicloudTLog"/>
-    <resource-file src="src/AliyunEmasServices-Info.plist"/>
+    <resource-file src="src/ios/AliyunEmasServices-Info.plist"/>
+  </platform>
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="XRAnalytics">
+        <param name="android-package" value="cordova-plugin-aliyun-emas-analytics.XRAnalytics"/>
+      </feature>
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+    <source-file src="src/android/XRAnalytics.java" target-dir="src/cordova-plugin-aliyun-emas-analytics/XRAnalytics"/>
   </platform>
 </plugin>
