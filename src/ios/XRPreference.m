@@ -139,11 +139,11 @@ static XRPreference *shareInstance = nil;
     dispatch_group_t group = dispatch_group_create();
     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
     // 性能分析
-    BOOL xn = [dictPreference objectForKey:@"alicloudxnserve"] || NO;
+    BOOL xn = [dictPreference objectForKey:@"aliyunxnserve"] || NO;
     // 崩溃分析
-    BOOL crash = [dictPreference objectForKey:@"alicloudcrashserve"] || NO;
+    BOOL crash = [dictPreference objectForKey:@"aliyuncrashserve"] || NO;
     // 远程日志
-    BOOL tlog = [dictPreference objectForKey:@"alicloudlogserve"] || NO;
+    BOOL tlog = [dictPreference objectForKey:@"aliyuntlogserve"] || NO;
     if (!(xn || crash || tlog)) {
         CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[NSString stringWithFormat:@"%s %@", __FUNCTION__, @"你没有开启任何服务，如有需要，请在config.xml文件中注册^_^"]];
         return [self.commandDelegate sendPluginResult:result callbackId:callbackId];
@@ -151,21 +151,21 @@ static XRPreference *shareInstance = nil;
     dispatch_group_async(group, queue, ^{
         if (xn) {
             [[AlicloudAPMProvider alloc] autoInitWithAppVersion:appVersion channel:channel nick:nick];
-            XRLog(@"--------性能分析");
+            XRLog(@"--xn");
         }
         if (tlog) {
             [[AlicloudTlogProvider alloc] autoInitWithAppVersion:appVersion channel:channel nick:nick];
-            XRLog(@"--------远程日志");
+            XRLog(@"--tlog");
         }
         if (crash) {
             [[AlicloudCrashProvider alloc] autoInitWithAppVersion:appVersion channel:channel nick:nick];
-            XRLog(@"--------崩溃分析");
+            XRLog(@"--crash");
         }
     });
 
     dispatch_group_notify(group, queue, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            XRLog(@"-------- start");
+            XRLog(@"--start");
             [AlicloudHAProvider start];
         });
     });

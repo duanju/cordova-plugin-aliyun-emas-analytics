@@ -3,6 +3,9 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
   <name>XRAnalytics</name>
   <keywords>cordova,aliyun,emas,aliyunsdk,analytics,tlog,crash</keywords>
+  <!--<engines>-->
+  <!--<engine name="cordova-android" version=">=5.0.0" />-->
+  <!--</engines>-->
   <js-module name="XRPreference" src="www/XRPreference.js">
     <clobbers target="XRPreference"/>
   </js-module>
@@ -12,6 +15,7 @@
   <dependency id="cordova-plugin-cocoapod-support"/>
   <platform name="ios">
     <hook src="scripts/before_prepare_ios.js" type="before_prepare"/>
+    <!--插件安装时config.xml配置文件项目位置-->
     <config-file parent="/*" target="config.xml">
       <feature name="XRPreference">
         <param name="ios-package" value="XRPreference"/>
@@ -34,12 +38,20 @@
     <resource-file src="src/ios/AliyunEmasServices-Info.plist"/>
   </platform>
   <platform name="android">
+    <hook src="scripts/before_prepare_android.js" type="before_prepare"/>
     <config-file parent="/*" target="res/xml/config.xml">
-      <feature name="XRAnalytics">
-        <param name="android-package" value="cordova-plugin-aliyun-emas-analytics.XRAnalytics"/>
+      <feature name="XRPreference">
+        <param name="android-package" value="org.apache.cordova.xrpreference.XRPreference"/>
+      </feature>
+      <feature name="XRRemoteLog">
+        <param name="android-package" value="org.apache.cordova.xrremotelog.XRRemoteLog"/>
       </feature>
     </config-file>
-    <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-    <source-file src="src/android/XRAnalytics.java" target-dir="src/cordova-plugin-aliyun-emas-analytics/XRAnalytics"/>
+    <config-file parent="/*" target="AndroidManifest.xml">
+    </config-file>
+    <source-file src="src/android/XRPreference.java" target-dir="src/org/apache/cordova/xrpreference"/>
+    <source-file src="src/android/XRRemoteLog.java" target-dir="src/org/apache/cordova/xrremotelog"/>
+    <framework src="build_extras.gradle" custom="true" type="gradleReference" />
+    <source-file src="src/android/aliyun-emas-services.json" target-dir="/assets"/>
   </platform>
 </plugin>

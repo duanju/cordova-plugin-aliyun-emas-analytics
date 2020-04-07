@@ -11,15 +11,15 @@
       <key>emas.bundleId</key>
       <string></string>
       <key>hotfix.idSecret</key>
-      <string>28361250-2</string>
+      <string></string>
       <key>hotfix.rsaSecret</key>
-      <string>MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCcAhrszUJhU2CqHfib0zGBvS6C5Q5W+ZymwNrQLAkuZ++AWZ0SnbKywDWLyfbQvd8j88O7CJq50sVwbNEbnPjFm5JZw6t6akq2A2LFQvBRwwmMraoqJ1ulXZFpjpH2QmhTmzyP1hFA05VH5j3BWkZC5B5FDqB7ZxkgicnMQjyazu5LqdXv4o67tujUMUJlzmQVu/GJ44pr5cjMXvewRrzlWM51jMs4EvE+5qiohIvfXpFbcZWePvE6W21/l/e8fMXrDnDxz1GkGvjMR2mmUzOKF8uain3hobMP8nKfszMh7waqwgJxnlHbTez9nOchdX89qZ8qD61IQw8yllZWe1PFAgMBAAECggEBAJJoZ1xURTeRR+ZeujGCwbNAF6Y/0HVPS/QyiSdULEmgwONzNjWCSXH3cEkAAOFlT0QuQEIGkS5S33fip1uCtPS+S1pyhzsbBYJLKyZ065PPteaQFGH7DcbjSNQHOHQjXkUYKn3SJ97useoH6WzLi6S68K1eTL2Cw9IFfZxzjOy6TjhufXHJG+XntOBysErLJvXpOMLv670bOBhxbBwu2ti1r9H8rSupOLKsa11GRiEUFO2nqdptKY/wUC3sKs0m9UrkSdTkE+HikSa7J0eHjmCuow/eSCUkxoJ80SlUBYTbf2O67DImX4uJXwNoqIDdpuR+9/a0jyLlFCeqNTJyqAECgYEA16VhVGjI6l5QY3thJvzDvAdJFIXogi6qqV+Z/EbNyeKzyufSxPXtQLHrIbC6Y7ELWuDfL1tg9OnS0NC01keCpByiAhCwmYLZmWTJ9qqmuRgqVR2K4n+cg8NNY+V0ot7IZqa1WlBHOHEi35D0aJ1yLzPH8oGYloq6VP7bDp9T1/kCgYEAuTO/4/UXdDgXSrUV1NPh9U4MYClfREF21sCCXacpmkVwf+zopWQm3slMYm6otgCp1LTs37nY6FjzTOgtFX9K1nojWzHpRY7H9AK+Y8mp/VdNFLrLj6XDNHa4bBJDskGud0Lw4tCMCX1xvB9fllFflY6m80tPX13zDcuUiJhahS0CgYAnfe//J1l0ImWScmvuWef2rVbi3UshXC6A6jMnEkhpqozGogHldCxI5sxq1RStYST1Na1p3NA6yf+DolUb0OjJ6Tx6KFhPJLl48A5UkBgMWbKW99wRctFVCBVKMCFWGnqU4f7gVUdVvNJoIwG/juX0YwVBEh7BoxJQsoOnf+I48QKBgFfZa0mHZdO0E6BVW4Cz7Pf+SLKIjW8EGontkSk5dOt/yshzqTti0WlWVQxP72k90VFbbQ0GzBQStX4il9gdpHMuRn0opL1g6AogDw2oiCDq+1486Pg/qePF+N8Sntf8ffSGZVtBj1ulDIEu5JmaCdwYaar4azMSjotZqSBOHIoVAoGAR+f5/PgQSdBH5BK1RcwvX3mt9PI1cdPfLeGrVDvgltrIoALSz3WsmtQvb1ZMGRyyW6bxVScQ6Ij8iGSQSOTRV0Wg/lCltA3cxcOmoydRZlbkS2iFMNyAi77bEKdasRDnPhToVSVGD8CeP9kChJIRT26fvy/RQEg/QESTrirRtck=</string>
+      <string></string>
       <key>httpdns.accountId</key>
-      <string>163686</string>
+      <string></string>
       <key>httpdns.secretKey</key>
-      <string>ebff12f42bcf0d766ef40fbbc88aaaab</string>
+      <string></string>
       <key>appmonitor.tlog.rsaSecret</key>
-      <string>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQChbIpzsVW4kg22Q68UbLqw1J3H6z30Pw9tVhjZpFygsAsCxJpZrlWvVyBMJ8Ounlt+qL0/14M6Ps2Wv/DAgePix8bPChG4DhZ0A+q8FdvW2wvKonXkKcSMuwur02lyoaHm1iwt3U2xLrWrLubS7zV5HgxL3sDDPFOQvMtZICmvYwIDAQAB</string>
+      <string></string>
     </dict>
     <key>services</key>
     <dict>
