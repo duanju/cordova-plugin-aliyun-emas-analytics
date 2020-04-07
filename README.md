@@ -29,8 +29,10 @@ cordova prepare <ios/android>
 ## 使用
 在安装插件成功之后需要对Cordova项目进行一定配置才能进行正常使用
 ### 配置
-在`Cordova`的`config.xml`下需进行以下配置：
+在`Cordova`项目进行以下配置：的`config.xml`下需进行以下配置：
 #### ios
+1、将`AliyunEmasServices-Info.plist`放入项目根目录（与`config.xml`同目录）
+2、`config.xml`添加如下配置：
 ```xml
 <platform name="ios">
     <preference name="EmasAppKey" value="your-aliyun-appkey"/>
@@ -42,6 +44,8 @@ cordova prepare <ios/android>
 </platform>
 ```
 #### android
+1、将`aliyun-emas-services.json`放入项目根目录（与`config.xml`同目录）
+2、`config.xml`添加如下配置：
 ```xml
 <platform name="android">
     <preference name="EmasAppKey" value="28434716"/>

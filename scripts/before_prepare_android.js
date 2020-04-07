@@ -7,7 +7,7 @@ const packageName = 'EmasPackageName';
 // 服务
 const AliyunXNServe = 'AliyunXNServe';
 const AliyunCrashServe = 'AliyunCrashServe';
-const AliyunTlogServe = 'AliyunLogServe';
+const AliyunTlogServe = 'AliyunTlogServe';
 const AliyunOpenDebug = 'AliyunOpenDebug';
 
 
