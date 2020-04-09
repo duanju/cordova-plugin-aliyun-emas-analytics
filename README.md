@@ -4,7 +4,7 @@
 - 项目集成
 - API说明
 ## 简介
-`cordova-plugin-aliyun-emas-analytics`是针对阿里云EMAS中`性能分析`、`远程日志`、`崩溃分析`三模块而开发的`Cordova`插件，用于解决上述三种阿里云服务只能在原生平台使用的弊端，开发者可以通过集成此插件来实现在任意Cordova框架上使用阿里云EMAS服务
+`cordova-plugin-aliyun-emas-analytics`是针对阿里云EMAS中`性能分析`、`远程日志`、`崩溃分析`、`移动数据分析`这几个模块而开发的`Cordova`插件，用于解决上述几种阿里云服务只能在原生平台使用的弊端，开发者可以通过集成此插件来实现在任意Cordova框架上使用阿里云EMAS服务
 
 ## 安装
 安装方式分两种：
