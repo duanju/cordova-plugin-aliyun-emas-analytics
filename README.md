@@ -62,16 +62,44 @@ cordova prepare <ios/android>
 - `AliyunMobileAnalyticsServe`：是否开启移动数据分析服务
 
 ### 具体用法
-> 使用前提：已在`config.xml`中对相关服务进行配置
+> 注意事项：
+> - 自动启动服务api必须要在`config.xml`中对相关服务进行配置
+> - 手动启动服务前必须先注册初始化数据
 
 **1、启动服务**
+>启动服务分两种形式：`自动启动`和`手动启动`，强烈建议使用`自动启动`模式
 ```
-// 在项目`deviceReady`中调用
+// 以下API皆在项目`deviceReady`中调用 
+
+// -------------------------
+// **自动启动服务（存在注意事项,需先配置config.xml）
+// 针对（性能分析、远程日志、崩溃分析、移动数据分析）
 AliyunEMAS.autoStartAliyunAnalyticsWithArgs('new_appVersion', 'new_channel', 'new_nick', (value) => {
     console.log(value);
 }, (e) => {
     console.error(e)
 })
+
+// -------------------------
+// **手动启动服务（性能分析、远程日志、崩溃分析）
+// 初始化数据（优先执行）
+AliyunEMAS.registerData('appVersion', 'channel', 'nick', success, error);
+
+// 注册性能分析服务
+AliyunEMAS.initAlicloudAPM();
+
+// 注册远程日志服务
+AliyunEMAS.initAlicloudTlog();
+
+// 注册崩溃分析服务
+AliyunEMAS.initAlicloudCrash();
+
+// 启动服务
+AliyunEMAS.start();
+
+// -------------------------
+// **手动启动服务（移动数据分析）
+AliyunEMAS.autoInitManSdk();
 ```
 **2、远程日志**
 > 在任意需要被调用的地方直接执行
