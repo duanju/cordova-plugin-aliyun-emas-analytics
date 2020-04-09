@@ -9,6 +9,7 @@ const AliyunXNServe = 'AliyunXNServe';
 const AliyunCrashServe = 'AliyunCrashServe';
 const AliyunTlogServe = 'AliyunTlogServe';
 const AliyunOpenDebug = 'AliyunOpenDebug';
+const AliyunMobileAnalyticsServe = 'AliyunMobileAnalyticsServe';
 
 
 module.exports = function (ctx) {
@@ -49,6 +50,7 @@ module.exports = function (ctx) {
     obj.AliyunCrashServe = preferences[AliyunCrashServe] || 'false'
     obj.AliyunTlogServe = preferences[AliyunTlogServe] || 'false'
     obj.AliyunOpenDebug = preferences[AliyunOpenDebug] || 'false'
+    obj.AliyunMobileAnalyticsServe = preferences[AliyunMobileAnalyticsServe] || 'false'
     if(preferences[AliyunOpenDebug]==='true'){
         console.log(obj);
     }

@@ -1,4 +1,4 @@
-package org.apache.cordova.xrpreference;
+package org.apache.cordova.aliyunemas;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -7,6 +7,11 @@ import android.util.Log;
 import com.alibaba.ha.adapter.AliHaAdapter;
 import com.alibaba.ha.adapter.AliHaConfig;
 import com.alibaba.ha.adapter.Plugin;
+import com.alibaba.ha.adapter.service.tlog.TLogLevel;
+import com.alibaba.ha.adapter.service.tlog.TLogService;
+import com.alibaba.sdk.android.man.MANHitBuilders;
+import com.alibaba.sdk.android.man.MANService;
+import com.alibaba.sdk.android.man.MANServiceProvider;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -22,9 +27,11 @@ import java.io.InputStreamReader;
 /**
  * This class echoes a string called from JavaScript.
  */
-public class XRPreference extends CordovaPlugin {
+public class AliyunEMAS extends CordovaPlugin {
 
-    /** LOG TAG */
+    /**
+     * LOG TAG
+     */
     private static final String LOG_TAG = "AliyunEMAS";
     // 配置文件读取
     private static String AliyunConfigFileName = "aliyun-emas-services.json";
@@ -39,9 +46,13 @@ public class XRPreference extends CordovaPlugin {
     private static Boolean AliyunXNServe = false;
     private static Boolean AliyunCrashServe = false;
     private static Boolean AliyunTlogServe = false;
+    private static Boolean AliyunMobileAnalyticsServe = false;
     // 工具
     private static Boolean AliyunOpenDebug = false;
-
+    /**
+     * 远程日志 tag
+     */
+    private static String TAG = "AliyunEMAS-Remote-Log";
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -87,6 +98,120 @@ public class XRPreference extends CordovaPlugin {
                 }
             });
             ret = true;
+        } else if (action.equals("info")) {
+
+            String model = args.getString(0);// 配置model
+            String message = args.getString(1);// 配置message
+            //设置可上传日志级别，默认 e 级别
+            TLogService.updateLogLevel(TLogLevel.VERBOSE);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TLogService.logi(model, TAG, message);
+                }
+            });
+            ret = true;
+        } else if (action.equals("error")) {
+
+            String model = args.getString(0);// 配置model
+            String message = args.getString(1);// 配置message
+            //设置可上传日志级别，默认 e 级别
+            TLogService.updateLogLevel(TLogLevel.VERBOSE);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TLogService.loge(model, TAG, message);
+                }
+            });
+            ret = true;
+        } else if (action.equals("warn")) {
+
+            String model = args.getString(0);// 配置model
+            String message = args.getString(1);// 配置message
+            //设置可上传日志级别，默认 e 级别
+            TLogService.updateLogLevel(TLogLevel.VERBOSE);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TLogService.logw(model, TAG, message);
+                }
+            });
+            ret = true;
+        } else if (action.equals("debug")) {
+
+            String model = args.getString(0);// 配置model
+            String message = args.getString(1);// 配置message
+            //设置可上传日志级别，默认 e 级别
+            TLogService.updateLogLevel(TLogLevel.VERBOSE);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TLogService.logd(model, TAG, message);
+                }
+            });
+            ret = true;
+        } else if (action.equals("autoInitManSdk")) {
+
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    // 获取MAN服务
+                    MANService manService = MANServiceProvider.getService();
+                    // 打开调试日志，线上版本建议关闭
+                    // manService.getMANAnalytics().turnOnDebug();
+                    // 若需要关闭 SDK 的自动异常捕获功能可进行如下操作(如需关闭crash report，建议在init方法调用前关闭crash),详见文档5.4
+                    manService.getMANAnalytics().turnOffCrashReporter();
+                    manService.getMANAnalytics().init(cordova.getActivity().getApplication(), cordova.getContext(),AliyunAppKey,AliyunAppSecret);
+                }
+            });
+            ret = true;
+        } else if (action.equals("userLogin")) {
+            String usernick = args.getString(0);// 用户昵称
+            String userid = args.getString(1);// 用户id
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    MANService manService = MANServiceProvider.getService();
+                    // 用户登录埋点
+                    manService.getMANAnalytics().updateUserAccount(usernick, userid);
+                }
+            });
+            ret = true;
+        } else if (action.equals("userRegister")) {
+            String userNick = args.getString(0);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    MANService manService = MANServiceProvider.getService();
+                    // 注册用户埋点
+                    manService.getMANAnalytics().userRegister(userNick);
+                }
+            });
+            ret = true;
+        } else if (action.equals("customEventBuilder")) {
+            String eventLabel = args.getString(0);
+            String pageName = args.getString(1);
+            long aDuration = args.getLong(2);
+//            HashMap<String,String> map = args.getJSONObject(3);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    // 事件名称
+                    MANHitBuilders.MANCustomHitBuilder hitBuilder = new MANHitBuilders.MANCustomHitBuilder(eventLabel);
+                    // 可使用如下接口设置时长
+                    hitBuilder.setDurationOnEvent(aDuration);
+                    // 设置关联的页面名称
+                    hitBuilder.setEventPage(pageName);
+//                    // 设置属性：类型摇滚
+//                    hitBuilder.setProperty("type", "rock");
+//                    // 设置属性：歌曲标题
+//                    hitBuilder.setProperty("title", "wonderful tonight");
+                    // 发送自定义事件打点
+                    MANService manService = MANServiceProvider.getService();
+                    manService.getMANAnalytics().getDefaultTracker().send(hitBuilder.build());
+                }
+            });
+            ret = true;
         }
         return ret;
     }
@@ -117,6 +242,7 @@ public class XRPreference extends CordovaPlugin {
             AliyunXNServe = jsonObj.getBoolean("AliyunXNServe");
             AliyunCrashServe = jsonObj.getBoolean("AliyunCrashServe");
             AliyunTlogServe = jsonObj.getBoolean("AliyunTlogServe");
+            AliyunMobileAnalyticsServe = jsonObj.getBoolean("AliyunMobileAnalyticsServe");
             // tool
             AliyunOpenDebug = jsonObj.getBoolean("AliyunOpenDebug");
 
@@ -124,7 +250,7 @@ public class XRPreference extends CordovaPlugin {
                 callbackContext.success("success");
             }
         } catch (JSONException e) {
-            Log.e("registerData:",e.getMessage());
+            Log.e("registerData:", e.getMessage());
             if (callbackContext != null) {
                 callbackContext.error(e.getMessage());
             }
@@ -215,15 +341,15 @@ public class XRPreference extends CordovaPlugin {
         config.isAliyunos = false;             //是否为yunos
         config.rsaPublicKey = AliyunTLogRsaPublicKey;
 
-        if(AliyunXNServe){
+        if (AliyunXNServe) {
             // 注册性能分析服务
             AliHaAdapter.getInstance().addPlugin(Plugin.apm);
         }
-        if(AliyunCrashServe){
+        if (AliyunCrashServe) {
             // 注册CrashReporter
             AliHaAdapter.getInstance().addPlugin(Plugin.crashreporter);
         }
-        if(AliyunTlogServe){
+        if (AliyunTlogServe) {
             // 注册远程日志
             AliHaAdapter.getInstance().addPlugin(Plugin.tlog);
         }
@@ -231,7 +357,20 @@ public class XRPreference extends CordovaPlugin {
         AliHaAdapter.getInstance().openDebug(AliyunOpenDebug);
         // 启动服务
         AliHaAdapter.getInstance().start(config);
-        callbackContext.success("");
+
+        if (AliyunMobileAnalyticsServe) {
+            // 获取MAN服务
+            MANService manService = MANServiceProvider.getService();
+            // 打开调试日志，线上版本建议关闭
+            if (AliyunOpenDebug) {
+                manService.getMANAnalytics().turnOnDebug();
+            }
+            // 若需要关闭 SDK 的自动异常捕获功能可进行如下操作:
+            // (如需关闭crash report，建议在init方法调用前关闭crash),详见文档5.4
+//            manService.getMANAnalytics().turnOffCrashReporter();
+            manService.getMANAnalytics().init(cordova.getActivity().getApplication(), cordova.getContext(),AliyunAppKey,AliyunAppSecret);
+        }
+        callbackContext.success("success");
     }
 
     /**
