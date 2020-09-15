@@ -1,5 +1,3 @@
-var exec = require('cordova/exec');
-
 var AliyunEMAS = {
 
     //////////////// 初始化EMAS ////////////////////
@@ -13,7 +11,7 @@ var AliyunEMAS = {
             console.error('参数不能为空');
             return error('appVersion, channel, nick 不能为空');
         }
-        exec(success, error, 'AliyunEMAS', 'registerData', [appVersion, channel, nick]);
+        cordova.exec(success, error, 'AliyunEMAS', 'registerData', [appVersion, channel, nick]);
     },
 
     /**
@@ -21,7 +19,7 @@ var AliyunEMAS = {
      * @details 性能监控初始化接口，appKey、appSecret会从AliyunEmasServices-Info.plist自动读取
      */
     initAlicloudAPM: function () {
-        exec(null, null, 'AliyunEMAS', 'initAlicloudAPM', null);
+        cordova.exec(null, null, 'AliyunEMAS', 'initAlicloudAPM', null);
     },
 
     /**
@@ -29,7 +27,7 @@ var AliyunEMAS = {
      * @details 远程日志初始化接口，appKey、appSecret会从AliyunEmasServices-Info.plist自动读取
      */
     initAlicloudTlog: function () {
-        exec(null, null, 'AliyunEMAS', 'initAlicloudTlog', null);
+        cordova.exec(null, null, 'AliyunEMAS', 'initAlicloudTlog', null);
     },
 
     /**
@@ -37,7 +35,7 @@ var AliyunEMAS = {
      * @details 崩溃分析初始化接口，appKey、appSecret会从AliyunEmasServices-Info.plist自动读取
      */
     initAlicloudCrash: function () {
-        exec(null, null, 'AliyunEMAS', 'initAlicloudCrash', null);
+        cordova.exec(null, null, 'AliyunEMAS', 'initAlicloudCrash', null);
     },
 
     /**
@@ -45,7 +43,7 @@ var AliyunEMAS = {
      * @details 启动AppMonitor服务，可包括崩溃分析、远程日志、性能监控
      */
     start: function () {
-        exec(null, null, 'AliyunEMAS', 'start', null);
+        cordova.exec(null, null, 'AliyunEMAS', 'start', null);
     },
 
     /**
@@ -60,7 +58,7 @@ var AliyunEMAS = {
             console.error('参数不能为空');
             return error('appVersion, channel, nick 不能为空');
         }
-        exec(success, error, 'AliyunEMAS', 'autoStartAliyunAnalyticsWithArgs', [appVersion, channel, nick]);
+        cordova.exec(success, error, 'AliyunEMAS', 'autoStartAliyunAnalyticsWithArgs', [appVersion, channel, nick]);
     },
 
     //////////////// 远程日志 log //////////////////
@@ -72,7 +70,7 @@ var AliyunEMAS = {
             return;
         }
         const arr = [title, msg];
-        exec(null, null, 'AliyunEMAS', 'error', arr);
+        cordova.exec(null, null, 'AliyunEMAS', 'error', arr);
     },
 
     warn: function (title, msg) {
@@ -81,7 +79,7 @@ var AliyunEMAS = {
             return;
         }
         const arr = [title, msg];
-        exec(null, null, 'AliyunEMAS', 'warn', arr);
+        cordova.exec(null, null, 'AliyunEMAS', 'warn', arr);
     },
     debug: function (title, msg) {
         if (!title || !msg || title.length === 0 || msg.length === 0) {
@@ -89,7 +87,7 @@ var AliyunEMAS = {
             return;
         }
         const arr = [title, msg];
-        exec(null, null, 'AliyunEMAS', 'debug', arr);
+        cordova.exec(null, null, 'AliyunEMAS', 'debug', arr);
     },
     info: function (title, msg) {
         if (!title || !msg || title.length === 0 || msg.length === 0) {
@@ -97,7 +95,7 @@ var AliyunEMAS = {
             return;
         }
         const arr = [title, msg];
-        exec(null, null, 'AliyunEMAS', 'info', arr);
+        cordova.exec(null, null, 'AliyunEMAS', 'info', arr);
     },
 
     //////////////// 移动数据分析 ////////////////////
@@ -107,7 +105,7 @@ var AliyunEMAS = {
      @brief 初始化移动数据分析（自动）
      */
     autoInitManSdk: function () {
-        exec(null, null, 'AliyunEMAS', 'autoInitManSdk', null);
+        cordova.exec(null, null, 'AliyunEMAS', 'autoInitManSdk', null);
     },
 
     /**
@@ -123,7 +121,7 @@ var AliyunEMAS = {
             console.error('参数不能为空');
             return;
         }
-        exec(null, null, 'AliyunEMAS', 'userLogin', [userAccount, userId]);
+        cordova.exec(null, null, 'AliyunEMAS', 'userLogin', [userAccount, userId]);
     },
 
     /**
@@ -138,7 +136,7 @@ var AliyunEMAS = {
             console.error('参数不能为空');
             return;
         }
-        exec(null, null, 'AliyunEMAS', 'userRegister', [userId]);
+        cordova.exec(null, null, 'AliyunEMAS', 'userRegister', [userId]);
     },
 
     /**
@@ -153,7 +151,7 @@ var AliyunEMAS = {
             console.error('参数不能为空');
             return;
         }
-        exec(null, null, 'AliyunEMAS', 'customEventBuilder', [eventLabel,pageName,duration,args]);
+        cordova.exec(null, null, 'AliyunEMAS', 'customEventBuilder', [eventLabel,pageName,duration,args]);
     },
 };
 
