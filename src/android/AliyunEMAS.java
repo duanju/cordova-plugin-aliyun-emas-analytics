@@ -229,8 +229,8 @@ public class AliyunEMAS extends CordovaPlugin {
             }
             // 入参配置
             AppVersion = args.getString(0);
-            Channel = args.getString(0);
-            UserNick = args.getString(0);
+            Channel = args.getString(1);
+            UserNick = args.getString(2);
             // json文件读取
             String jsonStr = getJson(AliyunConfigFileName, cordova.getContext());
             JSONObject jsonObj = new JSONObject(jsonStr);
