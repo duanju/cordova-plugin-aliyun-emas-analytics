@@ -42,9 +42,15 @@ module.exports = function (ctx) {
         return;
     }
     var obj = JSON.parse(json)
-    // obj.config['emas.appKey'] = preferences[appKey] || ''
-    // obj.config['emas.appSecret'] = preferences[appSecret] || ''
-    // obj.config['emas.packageName'] = preferences[packageName] || ''
+    obj.config['emas.appKey'] = preferences['emas.appKey'] || ''
+    obj.config['emas.appSecret'] = preferences['emas.appSecret'] || ''
+    obj.config['emas.packageName'] = preferences['emas.packageName'] || ''
+    obj.config['hotfix.idSecret'] = preferences['hotfix.idSecret'] || ''
+    obj.config['hotfix.rsaSecret'] = preferences['hotfix.rsaSecret'] || ''
+    obj.config['httpdns.accountId'] = preferences['httpdns.accountId'] || ''
+    obj.config['httpdns.secretKey'] = preferences['httpdns.secretKey'] || ''
+    obj.config['appmonitor.tlog.rsaSecret'] = preferences['appmonitor.tlog.rsaSecret'] || ''
+    obj.config['appmonitor.rsaSecret'] = preferences['appmonitor.rsaSecret'] || ''
     // 注册服务
     obj.AliyunXNServe = preferences[AliyunXNServe] || 'false'
     obj.AliyunCrashServe = preferences[AliyunCrashServe] || 'false'
