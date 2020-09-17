@@ -151,7 +151,9 @@ var AliyunEMAS = {
             console.error('参数不能为空');
             return;
         }
+        
         cordova.exec(null, null, 'AliyunEMAS', 'customEventBuilder', [eventLabel,pageName,duration,args]);
+        console.log('after cordova.exec AliyunEMAS customEventBuilder');
     },
 };
 

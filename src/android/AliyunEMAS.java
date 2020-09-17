@@ -23,6 +23,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -56,7 +60,7 @@ public class AliyunEMAS extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        LOG.d(LOG_TAG, "execute");
+        LOG.d(LOG_TAG, "execute " + action + " args: " + args.toString());
         boolean ret = false;
         if (action.equals("registerData")) {
             cordova.getActivity().runOnUiThread(new Runnable() {
@@ -189,26 +193,38 @@ public class AliyunEMAS extends CordovaPlugin {
             });
             ret = true;
         } else if (action.equals("customEventBuilder")) {
+            LOG.d(LOG_TAG, "prapare to run in cordova ui thread!");
             String eventLabel = args.getString(0);
             String pageName = args.getString(1);
-            long aDuration = args.getLong(2);
-//            HashMap<String,String> map = args.getJSONObject(3);
+            LOG.d(LOG_TAG, "eventLabel: " + eventLabel + " pageName: " + pageName);
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    LOG.d(LOG_TAG, "run in cordova ui thread!");
                     // 事件名称
                     MANHitBuilders.MANCustomHitBuilder hitBuilder = new MANHitBuilders.MANCustomHitBuilder(eventLabel);
-                    // 可使用如下接口设置时长
-                    hitBuilder.setDurationOnEvent(aDuration);
                     // 设置关联的页面名称
                     hitBuilder.setEventPage(pageName);
-//                    // 设置属性：类型摇滚
-//                    hitBuilder.setProperty("type", "rock");
-//                    // 设置属性：歌曲标题
-//                    hitBuilder.setProperty("title", "wonderful tonight");
+                    
+                    // 可使用如下接口设置时长
+                    // hitBuilder.setDurationOnEvent(aDuration);
+                    try {
+                        if (null != args.getJSONObject(3)) {
+                            HashMap<String,String> map = new Gson().fromJson(
+                                args.getJSONObject(3).toString(), new TypeToken<HashMap<String, String>>() {}.getType()
+                            );
+                            hitBuilder.setProperties(map);
+                            LOG.d(LOG_TAG, "get properties size: " + map.size());
+                        } else {
+                            LOG.d(LOG_TAG, "no property in args");
+                        }
+                    } catch (JSONException e) {
+                        LOG.e("registerData:", e.getMessage());
+                    }
                     // 发送自定义事件打点
                     MANService manService = MANServiceProvider.getService();
                     manService.getMANAnalytics().getDefaultTracker().send(hitBuilder.build());
+                    LOG.d(LOG_TAG, "send log");
                 }
             });
             ret = true;

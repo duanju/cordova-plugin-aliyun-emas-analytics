@@ -16,6 +16,7 @@ dependencies {
          transitive=true
     }
     compile 'com.aliyun.ams:alicloud-android-man:1.2.0'
+    compile 'com.google.code.gson:gson:2.8.6'
 }
 android {
     packagingOptions {
@@ -24,8 +25,7 @@ android {
     }
     defaultConfig {
         ndk {
-            abiFilters 'armeabi-v7a','armeabi','x86_64','x86'
+            abiFilters "armeabi", "armeabi-v7a", "x86"
         }
     }
 }
-
