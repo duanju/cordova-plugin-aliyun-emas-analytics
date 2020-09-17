@@ -28,7 +28,7 @@ module.exports = function (ctx) {
         // console.log('--------> ', projectName);
         var json = result.widget.platform[1].preference;
         for (var i = 0; i < json.length; i++) {
-            var key = json[i].$.name
+            var key = `${json[i].$.name}`
             var value = json[i].$.value
             preferences[key] = value;
         }
