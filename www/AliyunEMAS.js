@@ -54,9 +54,9 @@ var AliyunEMAS = {
      函数会返回失败信息，成功无返回
      */
     autoStartAliyunAnalyticsWithArgs: function (appVersion, channel, nick, success, error) {
-        if (!appVersion || !channel || !nick) {
+        if (!appVersion || !channel) {
             console.error('参数不能为空');
-            return error('appVersion, channel, nick 不能为空');
+            return error('appVersion, channel 不能为空');
         }
         cordova.exec(success, error, 'AliyunEMAS', 'autoStartAliyunAnalyticsWithArgs', [appVersion, channel, nick]);
     },
