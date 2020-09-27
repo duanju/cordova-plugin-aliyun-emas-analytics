@@ -42,15 +42,15 @@ module.exports = function (ctx) {
         return;
     }
     var obj = JSON.parse(json)
-    obj.config['emas.appKey'] = preferences['emas.appKey'] || ''
-    obj.config['emas.appSecret'] = preferences['emas.appSecret'] || ''
-    obj.config['emas.packageName'] = preferences['emas.packageName'] || ''
-    obj.config['hotfix.idSecret'] = preferences['hotfix.idSecret'] || ''
-    obj.config['hotfix.rsaSecret'] = preferences['hotfix.rsaSecret'] || ''
-    obj.config['httpdns.accountId'] = preferences['httpdns.accountId'] || ''
-    obj.config['httpdns.secretKey'] = preferences['httpdns.secretKey'] || ''
-    obj.config['appmonitor.tlog.rsaSecret'] = preferences['appmonitor.tlog.rsaSecret'] || ''
-    obj.config['appmonitor.rsaSecret'] = preferences['appmonitor.rsaSecret'] || ''
+    obj.config['emas.appKey'] = preferences['emas_appKey'] || ''
+    obj.config['emas.appSecret'] = preferences['emas_appSecret'] || ''
+    obj.config['emas.packageName'] = preferences['emas_packageName'] || ''
+    obj.config['hotfix.idSecret'] = preferences['hotfix_idSecret'] || ''
+    obj.config['hotfix.rsaSecret'] = preferences['hotfix_rsaSecret'] || ''
+    obj.config['httpdns.accountId'] = preferences['httpdns_accountId'] || ''
+    obj.config['httpdns.secretKey'] = preferences['httpdns_secretKey'] || ''
+    obj.config['appmonitor.tlog.rsaSecret'] = preferences['appmonitor_tlog_rsaSecret'] || ''
+    obj.config['appmonitor.rsaSecret'] = preferences['appmonitor_rsaSecret'] || ''
     // 注册服务
     obj.AliyunXNServe = preferences[AliyunXNServe] || 'false'
     obj.AliyunCrashServe = preferences[AliyunCrashServe] || 'false'
