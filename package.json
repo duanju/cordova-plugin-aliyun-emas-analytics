@@ -10,18 +10,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pi2star/cordova-plugin-aliyun-emas-analytics.git"
+    "url": "git+https://github.com/duanju/cordova-plugin-aliyun-emas-analytics.git"
   },
   "keywords": [
     "ecosystem:cordova",
     "cordova-ios"
   ],
-  "author": "xry",
+  "author": "Ju Duan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pi2star/cordova-plugin-aliyun-emas-analytics/issues"
+    "url": "https://github.com/duanju/cordova-plugin-aliyun-emas-analytics/issues"
   },
-  "homepage": "https://github.com/pi2star/cordova-plugin-aliyun-emas-analytics#readme",
+  "homepage": "https://github.com/duanju/cordova-plugin-aliyun-emas-analytics#readme",
   "dependencies": {
     "fs": "0.0.1-security",
     "plist": "^3.0.1",
